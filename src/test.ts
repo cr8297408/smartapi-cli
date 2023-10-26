@@ -13,10 +13,8 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import inquirer from "inquirer";
 import fs from 'fs';
+import { GenerateRouter } from './generators/express.mvc.js';
 const pathBase = process.cwd();
-
-// Template que usaremos para la creación del contenido del fichero
-import template from './templates/templateVUE.js';
 
 // Mostrar un banner con un mensaje formado por caracteres.
 const msn = (msn: any) => {
@@ -29,25 +27,11 @@ const msn = (msn: any) => {
 
 // Preguntas que se van a realizar y que más tarde usaremos
 const queryParams = () => {
-  const qs = [{
-      name: 'componentName',
+  const qs = [
+    {
+      name: 'name',
       type: 'input',
-      message: 'Escribe el nombre del componente'
-    },{
-      name: 'fileName',
-      type: 'input',
-      message: 'Escribe el nombre del fichero: '
-    }, {
-      name: 'type',
-      type: 'list',
-      message: 'Selecciona el tipo de elemento a crear: ',
-      choices: [
-        'Components',
-        'Views',
-        'Layouts',
-        'Models',
-        'Javascript',
-      ],
+      message: 'Escribe el nombre de la ruta de prueba'
     },
   ];
 
@@ -56,15 +40,9 @@ const queryParams = () => {
 
 // Método que se encarga de crear el fichero en base a las preguntas realizadas
 const createFile = (data: any) => {
-  const extension = data.type === 'Javascript' ? 'js' : 'vue'
-  const path = `${pathBase}\\src\\${data.type}`;
-  const file = `${path}\\${data.fileName}.${extension}`;
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path, 0o777);
-  }
   try {
-    const filetem = template.replace('$name', data.componentName);
-    fs.writeFileSync(file, filetem, { mode: 0o777 });
+    const file = GenerateRouter({ name: data.name });
+    console.log("🚀 ~ file: test.ts:59 ~ createFile ~ fileCreated:", file);
   } catch(err) {
     console.error(err);
   } finally {
@@ -72,7 +50,7 @@ const createFile = (data: any) => {
       ------ CREADO CORRECTAMENTE ------\n
       Se ha creado el siguiente elemento\n
       - Tipo: ${chalk.blue.bold(data.type)}\n
-      - Ruta: ${chalk.blue.bold(file)}\n
+      - Ruta: ${chalk.blue.bold(data)}\n
       ----------------------------------\n
     `);
   }
@@ -80,6 +58,6 @@ const createFile = (data: any) => {
 
 // IIFE (Immediately Invoked Function Expression)
 (async() => {
-  msn('MTM-CLI');
+  msn('SMARTAPI');
   createFile(await queryParams());
 })();

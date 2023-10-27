@@ -9,7 +9,7 @@
   lo que determina qué ejecutable lo interpretará. 
   Sin embargo, aún los necesita en el contexto de npm.
 */
-import chalk from 'chalk';
+import chalk from 'chalk/index.js';
 import figlet from 'figlet';
 import inquirer from "inquirer";
 import fs from 'fs';

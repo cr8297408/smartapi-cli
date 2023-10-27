@@ -61,7 +61,6 @@ class __name__Routes {
     this.router.get(
       '/:id',
       auth,
-      auth,
       // TODO add others middlewares
       __name__Controller.getOne,
     );
@@ -88,7 +87,6 @@ class __name__Routes {
      */
     this.router.post(
       '',
-      auth,
       auth,
       // TODO add others middlewares
       __name__Controller.create,
@@ -128,7 +126,6 @@ class __name__Routes {
     this.router.put(
       '/:id',
       auth,
-      auth,
       // TODO add others middlewares
       __name__Controller.update,
     );
@@ -158,7 +155,6 @@ class __name__Routes {
      */
     this.router.delete(
       '/:id',
-      auth,
       auth,
       // TODO add others middlewares
       __name__Controller.delete,

@@ -31,7 +31,7 @@ const queryParams = () => {
     {
       name: 'name',
       type: 'input',
-      message: 'Escribe el nombre de la ruta de prueba'
+      message: 'Escribe el nombre de tu projecto'
     },
   ];
 
@@ -56,8 +56,25 @@ const createFile = (data: any) => {
   }
 }
 
+const InitProjectMVC = (data: any) => {
+  try {
+    
+  } catch (error) {
+    console.error(error);
+  } finally {
+    console.log(`
+      ------ CREADO CORRECTAMENTE ------\n
+      Se ha creado el siguiente projecto\n
+      - Nombre: ${chalk.blue.bold(data.name)}\n
+      - P.Arquitectura: Modelo Vista Controlador
+      ----------------------------------\n
+    `);
+  }
+}
+
 // IIFE (Immediately Invoked Function Expression)
 (async() => {
   msn('SMARTAPI');
-  createFile(await queryParams());
+  // createFile(await queryParams());
+
 })();

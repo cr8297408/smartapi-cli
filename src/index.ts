@@ -9,11 +9,11 @@
   lo que determina qué ejecutable lo interpretará. 
   Sin embargo, aún los necesita en el contexto de npm.
 */
-import chalk from 'chalk/index.js';
+import chalk from 'chalk';
 import figlet from 'figlet';
 import inquirer from "inquirer";
-import fs from 'fs';
-import { GenerateRouter } from './generators/express.mvc.js';
+import { exec } from 'child_process';
+// import { GenerateRouter } from './generators/express.mvc.js';
 const pathBase = process.cwd();
 
 // Mostrar un banner con un mensaje formado por caracteres.
@@ -39,26 +39,40 @@ const queryParams = () => {
 };
 
 // Método que se encarga de crear el fichero en base a las preguntas realizadas
-const createFile = (data: any) => {
-  try {
-    const file = GenerateRouter({ name: data.name });
-    console.log("🚀 ~ file: test.ts:59 ~ createFile ~ fileCreated:", file);
-  } catch(err) {
-    console.error(err);
-  } finally {
-    console.log(`
-      ------ CREADO CORRECTAMENTE ------\n
-      Se ha creado el siguiente elemento\n
-      - Tipo: ${chalk.blue.bold(data.type)}\n
-      - Ruta: ${chalk.blue.bold(data)}\n
-      ----------------------------------\n
-    `);
-  }
-}
+// const createFile = (data: any) => {
+//   try {
+//     const file = GenerateRouter({ name: data.name });
+//     console.log("🚀 ~ file: test.ts:59 ~ createFile ~ fileCreated:", file);
+//   } catch(err) {
+//     console.error(err);
+//   } finally {
+//     console.log(`
+//       ------ CREADO CORRECTAMENTE ------\n
+//       Se ha creado el siguiente elemento\n
+//       - Tipo: ${chalk.blue.bold(data.type)}\n
+//       - Ruta: ${chalk.blue.bold(data)}\n
+//       ----------------------------------\n
+//     `);
+//   }
+// }
 
 const InitProjectMVC = (data: any) => {
   try {
-    
+    // Comando que quieres ejecutar
+    const comando = `mkdir ${data.name} && git clone https://github.com/cr8297408/smartapi-template.mvc.git ${data.name}`;
+  
+    // Ejecutar el comando
+    exec(comando, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error al ejecutar el comando: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`Error en la salida estándar del comando: ${stderr}`);
+        return;
+      }
+      console.log(`Salida del comando:\n${stdout}`);
+    });
   } catch (error) {
     console.error(error);
   } finally {
@@ -76,5 +90,5 @@ const InitProjectMVC = (data: any) => {
 (async() => {
   msn('SMARTAPI');
   // createFile(await queryParams());
-
+  InitProjectMVC(await queryParams());
 })();

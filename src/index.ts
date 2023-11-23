@@ -13,6 +13,8 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import inquirer from "inquirer";
 import { exec } from 'child_process';
+import { OPTIONS, TYPE_PROYECT } from './domain/commands.js';
+import { GenerateRouter } from './generators/express.mvc.js';
 // import { GenerateRouter } from './generators/express.mvc.js';
 const pathBase = process.cwd();
 
@@ -27,62 +29,75 @@ const msn = (msn: any) => {
 
 // Preguntas que se van a realizar y que más tarde usaremos
 const queryParams = () => {
-  const qs = [
+  const qs: inquirer.QuestionCollection<any> = [
+    {
+      name: 'firstOpt',
+      type: 'list',
+      message: 'Selecciona tu caso',
+      choices: ["Crear proyecto desde 0 💡", "Ya tengo un proyecto generado con smartapi ☺️"],
+      filter(val: string) {
+        if(val === "Crear proyecto desde 0 💡") {
+          return TYPE_PROYECT.NEW
+        }
+        return TYPE_PROYECT.EXISTING
+      },
+    },
     {
       name: 'name',
       type: 'input',
-      message: 'Escribe el nombre de tu projecto'
+      message: "Escribe el nombre de tu proyecto ☺️",
+      default: "smartapi_new_proyect",
+      when: (answers: any) => answers.firstOpt === TYPE_PROYECT.NEW
+    },
+    {
+      name: 'selectGenerateOpt',
+      type: 'list',
+      message: 'Selecciona que deseas hacer',
+      choices: ["Generar ruta"],
+      filter(val: string) {
+        if(val === "Generar ruta") {
+          return OPTIONS.GENERATE_ROUTE
+        }
+      },
     },
   ];
 
   return inquirer.prompt(qs);
 };
 
-// Método que se encarga de crear el fichero en base a las preguntas realizadas
-// const createFile = (data: any) => {
-//   try {
-//     const file = GenerateRouter({ name: data.name });
-//     console.log("🚀 ~ file: test.ts:59 ~ createFile ~ fileCreated:", file);
-//   } catch(err) {
-//     console.error(err);
-//   } finally {
-//     console.log(`
-//       ------ CREADO CORRECTAMENTE ------\n
-//       Se ha creado el siguiente elemento\n
-//       - Tipo: ${chalk.blue.bold(data.type)}\n
-//       - Ruta: ${chalk.blue.bold(data)}\n
-//       ----------------------------------\n
-//     `);
-//   }
-// }
-
 const InitProjectMVC = (data: any) => {
   try {
-    // Comando que quieres ejecutar
-    const comando = `mkdir ${data.name} && git clone https://github.com/cr8297408/smartapi-template.mvc.git ${data.name}`;
-  
-    // Ejecutar el comando
-    exec(comando, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error al ejecutar el comando: ${error.message}`);
-        return;
+    if (data?.firstOpt === TYPE_PROYECT.NEW) {
+      // Comando que quieres ejecutar
+      const comando = `mkdir ${data.name} && git clone https://github.com/cr8297408/smartapi-template.mvc.git ${data.name}`;
+      // Ejecutar el comando
+      exec(comando, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error al ejecutar el comando: ${error.message}`);
+          return;
+        }
+        if (stderr) {
+          console.error(`Error en la salida estándar del comando: ${stderr}`);
+          return;
+        }
+        console.log(`Salida del comando:\n${stdout}`);
+        console.log(`
+          ------ CREADO CORRECTAMENTE ------\n
+          Se ha creado el siguiente projecto\n
+          - Nombre: ${chalk.blue.bold(data.name)}\n
+          - P.Arquitectura: Modelo Vista Controlador
+          Recuerda reemplazar el origin del repositorio en git a tu repositorio remoto ☺️!!!
+          ----------------------------------\n
+        `);
+      });
+    }
+    if(data?.firstOpt === TYPE_PROYECT.EXISTING) {
+      if(data?.selectGenerateOpt === OPTIONS.GENERATE_ROUTE) {
+        GenerateRouter({ name: "Prueba" });
       }
-      if (stderr) {
-        console.error(`Error en la salida estándar del comando: ${stderr}`);
-        return;
-      }
-      console.log(`Salida del comando:\n${stdout}`);
-    });
+    }
   } catch (error) {
     console.error(error);
-  } finally {
-    console.log(`
-      ------ CREADO CORRECTAMENTE ------\n
-      Se ha creado el siguiente projecto\n
-      - Nombre: ${chalk.blue.bold(data.name)}\n
-      - P.Arquitectura: Modelo Vista Controlador
-      ----------------------------------\n
-    `);
   }
 }
 

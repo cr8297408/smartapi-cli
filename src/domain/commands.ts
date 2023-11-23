@@ -1,0 +1,8 @@
+export enum TYPE_PROYECT {
+  EXISTING = "EXISTING",
+  NEW = "NEW"
+}
+
+export enum OPTIONS {
+  GENERATE_ROUTE = "GENERATE_ROUTE"
+}

@@ -17,7 +17,7 @@ export const GenerateRouter = ({ name }: IGenerateRouter) => {
       ],
     output: {
       path: './src/routes',
-      pathAndFileNameDefaultCase: CaseConverterEnum.KebabCase,
+      pathAndFileNameDefaultCase: CaseConverterEnum.CamelCase,
       overwrite: false,
     },
   },

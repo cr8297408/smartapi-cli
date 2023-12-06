@@ -1,17 +1,55 @@
-# Generador de Codigo backend
+# Generador de Código Backend 🚀
 
-Este es un generador de Codigo backend que utiliza la librería `generate-template-files` y plantillas preconfiguradas para agilizar el desarrollo.
+¡Bienvenido al Generador de Código Backend! Este potente generador utiliza la librería `generate-template-files` junto con plantillas preconfiguradas para acelerar tu desarrollo. Aquí encontrarás una guía paso a paso para empezar rápidamente.
 
-## Requisitos
+## Requisitos 🛠️
 
-Asegúrate de tener Node.js y npm instalados en tu sistema antes de usar este generador.
+Antes de comenzar, asegúrate de tener Node.js y npm instalados en tu sistema.
 
-## Inicializando un proyecto
+## Inicialización del Proyecto 🚀
 
-1. Utiliza el comando npx smartapi-cli para instalar e iniciar la herramienta
+1. Ejecuta el siguiente comando para instalar e iniciar la herramienta:
 
-2. Inicialmente tienes dos opciones, crear proyecto de cero y trabajar sonbre un proyecto ya existente.
+   ```bash
+   npx smartapi-cli
+   ```
 
-   - Si eliges crear proyecto desde cero te inicializará tu api en instantes. (Ejecuta `npm i` para instalar tus dependencias).
+2. Al inicio, tendrás dos opciones: crear un proyecto desde cero o trabajar en un proyecto existente.
 
-3. Una vez tengas tu proyecto creado ya puedes empezar a usar las opciones de generación.
+- Si eliges crear un proyecto desde cero, tu API estará lista en cuestión de segundos. (No olvides ejecutar `npm i` para instalar las dependencias).
+
+3. ¡Listo! Ahora puedes aprovechar las funciones de generación para acelerar tu desarrollo.
+
+## Funcionalidades Destacadas 🌟
+
+### Manejo de Errores 🚨
+
+- **Error Handler:** Implementación de un manejador de errores global.
+
+- **Middleware de Error:** Manejo de rutas no encontradas y errores inesperados.
+
+- **Errores Personalizados:** Crea errores personalizados para una gestión más efectiva.
+
+- **Validación con Zod:** Utiliza Zod para validar datos de forma sencilla y robusta.
+
+### Documentación con Swagger 📚
+
+- **Generación Automática:** Próximamente, podrás generar documentación Swagger de forma automática.
+
+### AsyncWrapperHandling ⚙️
+
+- **Manejo de Excepciones:** Simplifica la gestión de excepciones para un código más limpio.
+
+### Repository Pattern 🗃️
+
+- **Manejo de Bases de Datos:** Implementa el patrón de repositorio para interactuar con diferentes motores de bases de datos y ORMs.
+
+### Variables de Entorno 🌐
+
+- **Configuración Dinámica:** Aprende a manejar variables de entorno para una configuración más versátil.
+
+### Estructura MVC 🏗️
+
+- **Modelo Vista Controlador:** Actualmente compatible con MVC, con la promesa de más templates en el futuro.
+
+¡Explora estas funcionalidades y mejora tu experiencia de desarrollo con el Generador de Código Backend! Si tienes sugerencias o preguntas, ¡no dudes en comunicarte con nosotros! 🚀👨‍💻

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { __name__Controller } from "../controller/__name__(lowerCase)";
 import { AsyncWrapperHandling } from "../utils";
 
-export class HelloWordRouter {
+export class __name__Router {
   router = Router();
   #controller: __name__Controller;
 
@@ -14,7 +14,7 @@ export class HelloWordRouter {
   public async config() {
     /**
      * @swagger
-     *  /api/v1/__pathName__/list:
+     *  /api/v1/__pathName__(lowerCase)/list:
      *    get:
      *      security: [] # No Security
      *      summary: add your summary this
@@ -37,7 +37,7 @@ export class HelloWordRouter {
 
     /**
      * @swagger
-     *  /api/v1/__pathName__/detail/{uuid}:
+     *  /api/v1/__pathName__(lowerCase)/detail/{uuid}:
      *    get:
      *      security: [] # No Security
      *      summary: add your summary this
@@ -71,7 +71,7 @@ export class HelloWordRouter {
 
     /**
      * @swagger
-     *  /api/v1/__pathName__/create:
+     *  /api/v1/__pathName__(lowerCase)/create:
      *    post:
      *      security: [] # No Security
      *      summary: add your summary this
@@ -100,7 +100,7 @@ export class HelloWordRouter {
 
     /**
      * @swagger
-     *  /api/v1/__pathName__/update/{uuid}:
+     *  /api/v1/__pathName__(lowerCase)/update/{uuid}:
      *    put:
      *      security: [] # No Security
      *      summary: add your summary this
@@ -140,7 +140,7 @@ export class HelloWordRouter {
 
     /**
      * @swagger
-     *  /api/v1/__pathName__/delete/{uuid}:
+     *  /api/v1/__pathName__(lowerCase)/delete/{uuid}:
      *    delete:
      *      security: [] # No Security
      *      summary: add your summary this
@@ -215,4 +215,4 @@ export class HelloWordRouter {
   }
 }
 
-export const HelloWordRouterInstance = new HelloWordRouter();
+export const __name__RouterInstance = new __name__Router();

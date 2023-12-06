@@ -14,7 +14,7 @@ import figlet from 'figlet';
 import inquirer from "inquirer";
 import { exec } from 'child_process';
 import { OPTIONS, TYPE_PROYECT } from './domain/commands.js';
-import { GenerateRouter } from './generators/express.mvc.js';
+import { GenerateController, GenerateRouter } from './generators/express.mvc.js';
 // import { GenerateRouter } from './generators/express.mvc.js';
 const pathBase = process.cwd();
 
@@ -30,6 +30,7 @@ const msn = (msn: any) => {
 // Preguntas que se van a realizar y que más tarde usaremos
 const queryParams = () => {
   const qs: inquirer.QuestionCollection<any> = [
+    // ? General options
     {
       name: 'firstOpt',
       type: 'list',
@@ -53,12 +54,38 @@ const queryParams = () => {
       name: 'selectGenerateOpt',
       type: 'list',
       message: 'Selecciona que deseas hacer',
-      choices: ["Generar ruta"],
+      choices: ["Generar ruta", "Generar controlador"],
       filter(val: string) {
         if(val === "Generar ruta") {
           return OPTIONS.GENERATE_ROUTE
         }
+        if(val === "Generar controlador") {
+          return OPTIONS.GENERATE_CONTROLLER
+        }
       },
+    },
+    // ? ROUTE OPTIONS
+    {
+      name: 'routeName',
+      type: 'input',
+      message: "Escribe el nombre de tu ruta (recuerda que si deseas generar una ruta par un controller llamado [HelloWorldController] el nombre que debes ingresar es HelloWorld) ☺️",
+      default: "HelloWorld",
+      when: (answers: any) => answers.selectGenerateOpt === OPTIONS.GENERATE_ROUTE
+    },
+    {
+      name: 'pathName',
+      type: 'input',
+      message: "Escribe el nombre del path para tu ruta☺️",
+      default: "saludo",
+      when: (answers: any) => answers.selectGenerateOpt === OPTIONS.GENERATE_ROUTE
+    },
+    // ? CONTROLLER OPTIONS
+    {
+      name: 'controllerName',
+      type: 'input',
+      message: "Escribe el nombre de tu Controlador recuerda usar CamelCase 🤗 ejemplo: HelloWorld☺️",
+      default: "HelloWorld",
+      when: (answers: any) => answers.selectGenerateOpt === OPTIONS.GENERATE_CONTROLLER
     },
   ];
 
@@ -93,8 +120,12 @@ const InitProjectMVC = (data: any) => {
     }
     if(data?.firstOpt === TYPE_PROYECT.EXISTING) {
       if(data?.selectGenerateOpt === OPTIONS.GENERATE_ROUTE) {
-        GenerateRouter({ name: "Prueba" });
+        GenerateRouter({ name: data?.routeName, path: data?.pathName?.replace(/\b\w/g, (l: string) => l.toUpperCase()) });
       }
+      if(data?.selectGenerateOpt === OPTIONS.GENERATE_CONTROLLER) {
+        GenerateController({ name: data?.controllerName });
+      }
+
     }
   } catch (error) {
     console.error(error);
@@ -104,6 +135,5 @@ const InitProjectMVC = (data: any) => {
 // IIFE (Immediately Invoked Function Expression)
 (async() => {
   msn('SMARTAPI');
-  // createFile(await queryParams());
   InitProjectMVC(await queryParams());
 })();

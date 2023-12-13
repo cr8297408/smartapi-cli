@@ -69,6 +69,7 @@ const queryParams = () => {
           return OPTIONS.GENERATE_VALIDATION_FILE
         }
       },
+      when: (answers: any) => answers.firstOpt === TYPE_PROYECT.EXISTING
     },
     // ? ROUTE OPTIONS
     {
@@ -129,14 +130,14 @@ const InitProjectMVC = (data: any) => {
       const comando = `mkdir ${data.name} && git clone https://github.com/cr8297408/smartapi-template.mvc.git ${data.name}`;
       // Ejecutar el comando
       exec(comando, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`Error al ejecutar el comando: ${error.message}`);
-          return;
-        }
-        if (stderr) {
-          console.error(`Error en la salida estándar del comando: ${stderr}`);
-          return;
-        }
+        // if (error) {
+        //   console.error(`Error al ejecutar el comando: ${error.message}`);
+        //   return;
+        // }
+        // if (stderr) {
+        //   console.error(`Error en la salida estándar del comando: ${stderr}`);
+        //   return;
+        // }
         console.log(`Salida del comando:\n${stdout}`);
         console.log(`
           ------ CREADO CORRECTAMENTE ------\n
@@ -164,14 +165,14 @@ const InitProjectMVC = (data: any) => {
         const comando = `npx ts-to-zod src/domain/models/${name}.ts src/validation/${name}.ts`;
         // Ejecutar el comando
       exec(comando, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`Error al ejecutar el comando: ${error.message}`);
-          return;
-        }
-        if (stderr) {
-          console.error(`Error en la salida estándar del comando: ${stderr}`);
-          return;
-        }
+        // if (error) {
+        //   console.error(`Error al ejecutar el comando: ${error.message}`);
+        //   return;
+        // }
+        // if (stderr) {
+        //   console.error(`Error en la salida estándar del comando: ${stderr}`);
+        //   return;
+        // }
         console.log(`Salida del comando:\n${stdout}`);
       });
       }

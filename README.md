@@ -1,6 +1,6 @@
 # Generador de Código Backend 🚀
 
-¡Bienvenido al Generador de Código Backend! Este potente generador utiliza la librería `generate-template-files` junto con plantillas preconfiguradas para acelerar tu desarrollo. Aquí encontrarás una guía paso a paso para empezar rápidamente.
+¡Bienvenido al Generador de Código Backend! Este potente generador utiliza las librería [`generate-template-files` , `ts-to-zod`] junto con plantillas preconfiguradas para acelerar tu desarrollo en express. Aquí encontrarás una guía paso a paso para empezar rápidamente.
 
 ## Requisitos 🛠️
 
@@ -53,3 +53,11 @@ Antes de comenzar, asegúrate de tener Node.js y npm instalados en tu sistema.
 - **Modelo Vista Controlador:** Actualmente compatible con MVC, con la promesa de más templates en el futuro.
 
 ¡Explora estas funcionalidades y mejora tu experiencia de desarrollo con el Generador de Código Backend! Si tienes sugerencias o preguntas, ¡no dudes en comunicarte con nosotros! 🚀👨‍💻
+
+## Cómo contribuir
+
+¡Nos encantaría que contribuyeras a este proyecto! Si encuentras útil este paquete, por favor, dale una estrella en [GitHub](https://github.com/cr8297408/smartapi-cli).
+
+## NPM:
+
+[npm](https://www.npmjs.com/package/smartapi-cli)

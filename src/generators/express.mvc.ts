@@ -47,3 +47,13 @@ export const GenerateController = ({ name }: IGenerateController) => {
     },
   ])
 };
+
+export interface IGenerateModule {
+  name: string;
+  path: string;
+}
+
+export const GenerateModule = ({ name, path }: IGenerateModule) => {
+  GenerateRouter({ name, path });
+  GenerateController({ name });
+};

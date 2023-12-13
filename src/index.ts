@@ -14,7 +14,7 @@ import figlet from 'figlet';
 import inquirer from "inquirer";
 import { exec } from 'child_process';
 import { OPTIONS, TYPE_PROYECT } from './domain/commands.js';
-import { GenerateController, GenerateRouter } from './generators/express.mvc.js';
+import { GenerateController, GenerateModule, GenerateRouter } from './generators/express.mvc.js';
 // import { GenerateRouter } from './generators/express.mvc.js';
 const pathBase = process.cwd();
 
@@ -54,13 +54,19 @@ const queryParams = () => {
       name: 'selectGenerateOpt',
       type: 'list',
       message: 'Selecciona que deseas hacer',
-      choices: ["Generar ruta", "Generar controlador"],
+      choices: ["Generar ruta", "Generar controlador", "Generar modulo", "Generar archivo de validación"],
       filter(val: string) {
         if(val === "Generar ruta") {
           return OPTIONS.GENERATE_ROUTE
         }
         if(val === "Generar controlador") {
           return OPTIONS.GENERATE_CONTROLLER
+        }
+        if(val === "Generar modulo") {
+          return OPTIONS.GENERATE_MODULE
+        }
+        if(val === "Generar archivo de validación") {
+          return OPTIONS.GENERATE_VALIDATION_FILE
         }
       },
     },
@@ -87,6 +93,30 @@ const queryParams = () => {
       default: "HelloWorld",
       when: (answers: any) => answers.selectGenerateOpt === OPTIONS.GENERATE_CONTROLLER
     },
+    // ? MODULE OPTIONS
+    {
+      name: 'moduleName',
+      type: 'input',
+      message: "Escribe el nombre de tu modulo: ",
+      default: "HelloWorld",
+      when: (answers: any) => answers.selectGenerateOpt === OPTIONS.GENERATE_MODULE
+    },
+    {
+      name: 'pathName',
+      type: 'input',
+      message: "Escribe el nombre del path para tu ruta☺️",
+      default: "saludo",
+      when: (answers: any) => answers.selectGenerateOpt === OPTIONS.GENERATE_MODULE
+    },
+    // ? VALIDATION FILES OPTIONS
+    {
+      name: 'validationName',
+      type: 'input',
+      message: "Escribe el nombre de tu interfaz (recuerda que debe estár en src/domain/models)",
+      default: "CreateHelloWord",
+      when: (answers: any) => answers.selectGenerateOpt === OPTIONS.GENERATE_VALIDATION_FILE
+    },
+    
   ];
 
   return inquirer.prompt(qs);
@@ -125,7 +155,26 @@ const InitProjectMVC = (data: any) => {
       if(data?.selectGenerateOpt === OPTIONS.GENERATE_CONTROLLER) {
         GenerateController({ name: data?.controllerName });
       }
-
+      if(data?.selectGenerateOpt === OPTIONS.GENERATE_MODULE) {
+        GenerateModule({ name: data?.moduleName, path: data?.pathName?.replace(/\b\w/g, (l: string) => l.toUpperCase()) });
+      }
+      if(data?.selectGenerateOpt === OPTIONS.GENERATE_VALIDATION_FILE) {
+        const name = data?.validationName
+        // TODO: CHANGE ROUTE;
+        const comando = `npx ts-to-zod src/domain/models/${name}.ts src/validation/${name}.ts`;
+        // Ejecutar el comando
+      exec(comando, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error al ejecutar el comando: ${error.message}`);
+          return;
+        }
+        if (stderr) {
+          console.error(`Error en la salida estándar del comando: ${stderr}`);
+          return;
+        }
+        console.log(`Salida del comando:\n${stdout}`);
+      });
+      }
     }
   } catch (error) {
     console.error(error);

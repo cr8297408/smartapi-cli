@@ -1,6 +1,6 @@
 {
   "name": "smartapi-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "type": "module",
   "exports": "./index.js",
@@ -11,6 +11,10 @@
     "start": "node dist/index.js",
     "prepare": "npm run build",
     "create-router": "node dist/testRouter.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cr8297408/smartapi-cli"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +34,7 @@
     "generate-template-files": "^3.2.1",
     "inquirer": "^9.0.2",
     "lowdb": "^3.0.0",
-    "ts-morph": "^20.0.0"
+    "ts-morph": "^20.0.0",
+    "ts-to-zod": "^3.5.0"
   }
 }
